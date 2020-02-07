@@ -1,0 +1,21 @@
+
+www.dsti:80 {
+  tls off
+  #tls david@adaltas.com
+  proxy / http://website_web_1.private:80
+}
+
+dsti:80 {
+  tls off
+  redir https://www.dsti{uri}
+}
+
+gitlab.dsti:80 {
+  tls off
+  #tls david@adaltas.com
+  proxy / http://gitlab_gitlab_1.private:80 {
+    fail_timeout 300s
+    transparent
+    #header_upstream X-Forwarded-Ssl on
+  }
+}

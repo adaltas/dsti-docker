@@ -1,0 +1,14 @@
+version: "2"
+services:
+  nginx:
+    build: .
+    volumes:
+     - ./sites-enabled:/etc/nginx/sites-enabled
+     - ./log:/var/log/nginx/
+     - ./letsencrypt:/var/www/letsencrypt
+    ports:
+     - "80:80"
+networks:
+  default:
+    external:
+      name: private

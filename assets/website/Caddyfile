@@ -1,0 +1,31 @@
+0.0.0.0:80
+browse
+tls off
+gzip
+root /src/public
+cache
+header / {
+  Cache-Control "public, max-age=3600"
+}
+log / /src/logs/access.log {
+  rotate_size 10  # Rotate after 100 MB
+  rotate_age  14  # Keep log files for 14 days
+  rotate_keep 10  # Keep at most 10 log files
+  rotate_compress
+}
+errors /src/logs/errors.log {
+  404        404.html
+  rotate_size 10  # Rotate after 100 MB
+  rotate_age  14  # Keep log files for 14 days
+  rotate_keep 10  # Keep at most 10 log files
+  rotate_compress
+}
+# git {
+#     repo      "https://gitlab+deploy-token-2:XXXXXXXXXXXXXX@gitlab.adaltas.com/# adaltas/website.git"
+#     hook      /__webhook__ XXXXXXXXXXXXXX
+#     hook_type gitlab
+#     branch    public
+#     interval  60
+# }
+import /etc/Caddyfile_redirect
+

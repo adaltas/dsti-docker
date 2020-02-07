@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    restart: always
+    image: abiosoft/caddy
+    ports:
+    - 11080:80
+    - 11443:443
+    volumes:
+    - ./Caddyfile:/etc/Caddyfile
+    - ./redirect.conf:/etc/Caddyfile_redirect
+    - ./tls:/src/tls
+    - ./public:/src/public
+    - ./logs:/src/logs:Z
+    environment:
+    - ACME_AGREE=true
+    - CADDYPATH=/etc/tls
+networks:
+ default:
+   external:
+     name: private
