@@ -3,17 +3,17 @@ version: '2'
 services:
   redis:
     restart: always
-    image: sameersbn/redis:4.0.9-1
+    image: sameersbn/redis:4.0.9-2
     command:
     - --loglevel warning
     volumes:
-    - ./volumes/redis:/var/lib/redis:Z
+    - redis-data:/var/lib/redis:Z
 
   postgresql:
     restart: always
-    image: sameersbn/postgresql:10
+    image: sameersbn/postgresql:10-2
     volumes:
-    - ./volumes/postgresql:/var/lib/postgresql:Z
+    - postgresql-data:/var/lib/postgresql:Z
     environment:
     - DB_USER=gitlab
     - DB_PASS=IJ64LkKmN7OD0Gc19r9B
@@ -23,7 +23,7 @@ services:
     - REPLICATION_PASS=aLlIjJ5SZzRkO34kVfyg
   gitlab:
     restart: always
-    image: sameersbn/gitlab:11.10.4
+    image: sameersbn/gitlab:12.7.5
     depends_on:
     - redis
     - postgresql
@@ -31,22 +31,22 @@ services:
     - "10080:80"
     - "10022:22"
     volumes:
-    - ./volumes/gitlab:/home/git/data:Z
+    - gitlab-data:/home/git/data:Z
     environment:
     - DEBUG=false
-    - RACK_ATTACK_WHITELIST=176.162.26.137
 
     - DB_ADAPTER=postgresql
     - DB_HOST=postgresql
+    - DB_PORT=5432
     - DB_USER=gitlab
+    - DB_PASS=password
     - DB_NAME=gitlabhq_production
-    - DB_PASS=IJ64LkKmN7OD0Gc19r9B
 
     - REDIS_HOST=redis
     - REDIS_PORT=6379
 
-    - TZ=Europe/Paris
-    - GITLAB_TIMEZONE=Paris
+    - TZ=Asia/Kolkata
+    - GITLAB_TIMEZONE=Kolkata
 
     - GITLAB_HTTPS=false
     - SSL_SELF_SIGNED=false
@@ -71,7 +71,6 @@ services:
 
     - GITLAB_BACKUP_SCHEDULE=daily
     - GITLAB_BACKUP_TIME=01:00
-
 
     - SMTP_ENABLED=true
     - SMTP_OPENSSL_VERIFY_MODE=none
@@ -149,11 +148,18 @@ services:
     - OAUTH_AUTH0_CLIENT_ID=
     - OAUTH_AUTH0_CLIENT_SECRET=
     - OAUTH_AUTH0_DOMAIN=
+    - OAUTH_AUTH0_SCOPE=
 
     - OAUTH_AZURE_API_KEY=
     - OAUTH_AZURE_API_SECRET=
     - OAUTH_AZURE_TENANT_ID=
+
 networks:
   default:
     external:
       name: private
+
+volumes:
+  redis-data:
+  postgresql-data:
+  gitlab-data:
