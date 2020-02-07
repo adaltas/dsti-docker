@@ -51,13 +51,13 @@ services:
     - GITLAB_HTTPS=false
     - SSL_SELF_SIGNED=false
 
-    - GITLAB_HOST=localhost
-    - GITLAB_PORT=10080
-    - GITLAB_SSH_PORT=10022
+    - GITLAB_HOST=gitlab.adaltas.com
+    - GITLAB_PORT=80
+    - GITLAB_SSH_PORT=22
     - GITLAB_RELATIVE_URL_ROOT=
-    - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
-    - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
-    - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
+    - GITLAB_SECRETS_DB_KEY_BASE=EnCt263f6f6ccf0c712764fdfc
+    - GITLAB_SECRETS_SECRET_KEY_BASE=EnCt263f6f6ccf0c712764fdfd
+    - GITLAB_SECRETS_OTP_KEY_BASE=EnCt263f6f6ccf0c712764fdfe
 
     - GITLAB_ROOT_PASSWORD=
     - GITLAB_ROOT_EMAIL=
@@ -65,27 +65,29 @@ services:
     - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
     - GITLAB_NOTIFY_PUSHER=false
 
-    - GITLAB_EMAIL=notifications@example.com
-    - GITLAB_EMAIL_REPLY_TO=noreply@example.com
-    - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
+    - GITLAB_EMAIL=system@adaltas.com
+    - GITLAB_EMAIL_REPLY_TO=noreply@adaltas.com
+    - GITLAB_INCOMING_EMAIL_ADDRESS=system@adaltas.com
 
     - GITLAB_BACKUP_SCHEDULE=daily
     - GITLAB_BACKUP_TIME=01:00
 
-    - SMTP_ENABLED=false
-    - SMTP_DOMAIN=www.example.com
-    - SMTP_HOST=smtp.gmail.com
-    - SMTP_PORT=587
-    - SMTP_USER=mailer@example.com
-    - SMTP_PASS=password
-    - SMTP_STARTTLS=true
+    - SMTP_ENABLED=true
+    - SMTP_OPENSSL_VERIFY_MODE=none
+    - SMTP_DOMAIN=smtp.adaltas.com
+    - SMTP_HOST=smtp.adaltas.com
+    - SMTP_PORT=465
+    - SMTP_USER=system@adaltas.com
+    - SMTP_PASS=
+    - SMTP_TLS=true
+    #- SMTP_STARTTLS=true
     - SMTP_AUTHENTICATION=login
 
-    - IMAP_ENABLED=false
-    - IMAP_HOST=imap.gmail.com
-    - IMAP_PORT=993
-    - IMAP_USER=mailer@example.com
-    - IMAP_PASS=password
+    - IMAP_ENABLED=true
+    - IMAP_HOST=imap.adaltas.com
+    - IMAP_PORT=143
+    - IMAP_USER=system@adaltas.com
+    - IMAP_PASS=
     - IMAP_SSL=true
     - IMAP_STARTTLS=false
 
